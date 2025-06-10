@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import Header from "./components/header";
-import CardGrid from "./components/CardGrid";
+import Header from "./components/header.jsx";
+import CardGrid from "./components/CardGrid.jsx";
 import levelData from "./data/data";
 const url = "https://pokeapi.co/api/v2/pokemon/";
 function App() {

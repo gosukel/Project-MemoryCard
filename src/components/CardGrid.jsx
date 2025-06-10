@@ -1,5 +1,5 @@
 import "./CardGrid.css";
-import Card from "./Card";
+import Card from "./Card.jsx";
 import { useEffect, useState } from "react";
 
 export default function CardGrid({ pokeList, shuffle, reset, increaseScore }) {
