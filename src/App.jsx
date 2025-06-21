@@ -25,56 +25,31 @@ function App() {
     }
 
     useEffect(() => {
-        Promise.all([
-            fetch(url + curLevelData[0]),
-            fetch(url + curLevelData[1]),
-            fetch(url + curLevelData[2]),
-            fetch(url + curLevelData[3]),
-            fetch(url + curLevelData[4]),
-            fetch(url + curLevelData[5]),
-            fetch(url + curLevelData[6]),
-            fetch(url + curLevelData[7]),
-            fetch(url + curLevelData[8]),
-            fetch(url + curLevelData[9]),
-            fetch(url + curLevelData[10]),
-            fetch(url + curLevelData[11]),
-        ])
-            .then(
-                ([
-                    monOne,
-                    monTwo,
-                    monThree,
-                    monFour,
-                    monFive,
-                    monSix,
-                    monSeven,
-                    monEight,
-                    monNine,
-                    monTen,
-                    monEleven,
-                    monTwelve,
-                ]) => {
-                    return Promise.all([
-                        monOne.json(),
-                        monTwo.json(),
-                        monThree.json(),
-                        monFour.json(),
-                        monFive.json(),
-                        monSix.json(),
-                        monSeven.json(),
-                        monEight.json(),
-                        monNine.json(),
-                        monTen.json(),
-                        monEleven.json(),
-                        monTwelve.json(),
-                    ]);
-                }
-            )
-            .then((values) => {
-                // console.log(values);
-                setMonList(values);
-                setLoading(false);
-            });
+        const dataFetch = async () => {
+            const result = (
+                await Promise.all([
+                    fetch(url + curLevelData[0]),
+                    fetch(url + curLevelData[1]),
+                    fetch(url + curLevelData[2]),
+                    fetch(url + curLevelData[3]),
+                    fetch(url + curLevelData[4]),
+                    fetch(url + curLevelData[5]),
+                    fetch(url + curLevelData[6]),
+                    fetch(url + curLevelData[7]),
+                    fetch(url + curLevelData[8]),
+                    fetch(url + curLevelData[9]),
+                    fetch(url + curLevelData[10]),
+                    fetch(url + curLevelData[11]),
+                ])
+            ).map((r) => r.json());
+
+            const allMons = await Promise.all(result);
+
+            setMonList(allMons);
+            setLoading(false);
+        };
+
+        dataFetch();
     }, [level]);
 
     function increaseScore() {
@@ -95,6 +70,8 @@ function App() {
         setScore(0);
         setLevel(1);
     }
+
+    if (loading) return <h1>Loading...</h1>;
 
     return (
         <>
